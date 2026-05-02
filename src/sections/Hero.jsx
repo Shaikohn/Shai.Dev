@@ -14,17 +14,15 @@ export default function Hero() {
           {/* LEFT */}
           <div className="max-w-2xl mx-auto text-center md:text-left">
             <p className="text-[11px] uppercase tracking-[0.28em] text-zinc-500 mb-6 mx-auto md:mx-0">
-              Mobile & Web Developer
+              React Native · Firebase · Real-time
             </p>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.04] tracking-tight mb-8 max-w-[14ch] mx-auto md:mx-0">
-              I design and build products that feel simple and intentional.
+              I build products that are simple to use and hard to break.
             </h1>
 
             <p className="text-zinc-400 text-base md:text-lg leading-8 max-w-[36rem] mx-auto md:mx-0 mb-10">
-              I’m a React Native developer with a strong web background in
-              React, Node.js and MongoDB. I build products that feel modern,
-              structured and intentional.
+              Specialized in React Native and real-time systems. Currently shipping on Android.
             </p>
 
             <div className="flex flex-wrap justify-center md:justify-start gap-4">

@@ -6,15 +6,30 @@ import ztreamCover from "../assets/projects/ztreamgames/cover.png";
 import cuevanixCover from "../assets/projects/cuevanix/cover.png";
 import imp1 from "../assets/projects/impostor/imp1.png";
 import imp2 from "../assets/projects/impostor/imp2.png";
+import imp3 from "../assets/projects/impostor/imp3.png";
+import imp4 from "../assets/projects/impostor/imp4.png";
+/* import ztCover from "../assets/projects/ztreamgames/cover.png";
 import zt1 from "../assets/projects/ztreamgames/zt1.png";
 import zt2 from "../assets/projects/ztreamgames/zt2.png";
+import cuCover from "../assets/projects/cuevanix/cover.png";
 import cu1 from "../assets/projects/cuevanix/cu1.png";
-import cu2 from "../assets/projects/cuevanix/cu2.png";
+import cu2 from "../assets/projects/cuevanix/cu2.png"; */
+import casCover from "../assets/projects/casino/cover.png";
+import fulboCover from "../assets/projects/fulbo/cover.png";
+import cas1 from "../assets/projects/casino/cas1.png";
+import cas2 from "../assets/projects/casino/cas2.png";
+import cas3 from "../assets/projects/casino/cas3.png";
+import cas4 from "../assets/projects/casino/cas4.png";
+import ful1 from "../assets/projects/fulbo/ful1.png";
+import ful2 from "../assets/projects/fulbo/ful2.png";
+import ful3 from "../assets/projects/fulbo/ful3.png";
 
 export default function Projects() {
-  const impostorImages = [imp1, imp2];
-  const ztreamImages = [zt1, zt2];
-  const cuevanixImages = [cu1, cu2];
+  const impostorImages = [imp1, imp2, imp3, imp4];
+  /* const ztreamImages = [ztCover,zt1, zt2];
+  const cuevanixImages = [cuCover, cu1, cu2]; */
+  const casinoImages = [cas1, cas2, cas3, cas4];
+  const fulboImages = [fulboCover, ful1, ful2, ful3];
 
   const [modal, setModal] = useState({
     open: false,
@@ -40,12 +55,11 @@ export default function Projects() {
         {/* HEADER */}
         <div className="max-w-2xl mb-12 md:mb-14">
           <h2 className="text-4xl md:text-5xl font-semibold tracking-tight mb-5">
-            Things I’ve Built
+            Selected Work
           </h2>
 
           <p className="text-zinc-400 text-lg leading-relaxed">
-            A selection of projects focused on building real products with clean
-            structure and modern interfaces.
+            Selected projects, including a published mobile app on the Play Store.
           </p>
         </div>
 
@@ -60,34 +74,45 @@ export default function Projects() {
               <h3 className="text-2xl md:text-3xl font-semibold mb-2 flex items-center gap-2 justify-center md:justify-start">
                 Impostor Futbolero
                 <span className="text-[10px] px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/20">
-                  Live
+                  Live on Play Store
                 </span>
               </h3>
 
               <p className="text-xs text-zinc-500 mb-4 tracking-wide">
-                Mobile product · Real-time multiplayer
+                2026 · Mobile product · Real-time multiplayer
               </p>
 
-              <p className="text-zinc-400 leading-8 mb-6">
-                A real-time multiplayer mobile game designed for fast social
-                gameplay, featuring dynamic rooms, voting systems and turn-based
-                interactions.
+              <p className="text-zinc-400 leading-8 mb-4">
+                Real-time mobile party game built around private rooms, voting rounds, and turn-based match flow.
+              </p>
+
+              <p className="text-zinc-400 leading-8 mb-4">
+                Built the app end to end, implementing room logic, player state sync, voting resolution, and round progression across connected clients.
+              </p>
+
+              <p className="text-sm text-zinc-300 mb-3">
+                Built and shipped end to end as a solo project.
               </p>
 
               <p className="text-sm text-zinc-500 mb-8">
-                React Native · Firebase · Real-time multiplayer
+                React Native · Firebase · Real-time synchronization
               </p>
 
               <div className="flex justify-center md:justify-start flex-wrap gap-4">
-                <button className="text-sm font-semibold px-6 py-3 rounded-full bg-white text-[#0a0f1c] hover:scale-[1.05] hover:shadow-[0_10px_30px_rgba(255,255,255,0.15)] transition-all duration-200">
+                <a
+                  href="https://play.google.com/store/apps/details?id=com.shaidev.impostorfutbolero&hl=es"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-semibold px-6 py-3 rounded-full bg-white text-[#0a0f1c] hover:scale-[1.05] hover:shadow-[0_10px_30px_rgba(255,255,255,0.15)] transition-all duration-200"
+                >
                   View on Play Store
-                </button>
+                </a>
 
                 <button
                   onClick={() =>
                     openModal(impostorImages, "Impostor Futbolero", "mobile")
                   }
-                  className="text-sm font-semibold px-5 py-2.5 rounded-full border border-white/15 hover:bg-white/10 hover:border-white/30 hover:scale-[1.03] transition-all duration-200"
+                  className="cursor-pointer text-sm font-semibold px-5 py-2.5 rounded-full border border-white/15 hover:bg-white/10 hover:border-white/30 hover:scale-[1.03] transition-all duration-200"
                 >
                   Screenshots
                 </button>
@@ -109,54 +134,81 @@ export default function Projects() {
                 <div className="absolute inset-0 scale-110 rounded-[40px] bg-blue-500/10 blur-3xl" />
 
                 <div className="relative rounded-[32px] border border-white/10 bg-black/20 p-2 shadow-[0_20px_80px_rgba(0,0,0,0.35)] backdrop-blur-sm">
-                  <img
-                    src={impostorCover}
-                    alt="Impostor Futbolero"
-                    className="h-[340px] md:h-[380px] object-contain rounded-[24px]"
-                  />
+                  <button
+                    type="button"
+                    onClick={() =>
+                      openModal(impostorImages, "Impostor Futbolero", "mobile")
+                    }
+                    className="p-0 bg-transparent border-0 cursor-pointer"
+                    aria-label="Open Impostor screenshots"
+                  >
+                    <img
+                      src={impostorCover}
+                      alt="Impostor Futbolero"
+                      className="h-[340px] md:h-[380px] object-contain rounded-[24px]"
+                    />
+                  </button>
                 </div>
               </div>
             </div>
           </article>
 
-          {/* ================== ZTREAM ================== */}
+          {/* ================== DELTABET ================== */}
           <article className="group grid md:grid-cols-[1.05fr_0.95fr] gap-8 md:gap-10 items-center opacity-90 hover:opacity-100 transition-all duration-300">
 
             {/* TEXT */}
             <div className="order-1 max-w-xl text-center md:text-left transition-all duration-300 group-hover:-translate-y-1">
               
-              <h3 className="text-2xl md:text-3xl font-semibold mb-2">
-                ZtreamGames
+              <h3 className="text-2xl md:text-3xl font-semibold mb-2 flex items-center gap-2 justify-center md:justify-start">
+                DeltaBet Casino Games
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/20">
+                  Live
+                </span>
               </h3>
 
               <p className="text-xs text-zinc-500 mb-4 tracking-wide">
-                Team project · SCRUM environment
+                2025–2026 · Freelance work · Multiplayer games
               </p>
 
-              <p className="text-zinc-400 leading-8 mb-6">
-                A collaborative gaming platform focused on content exploration
-                and user interaction, built with scalability and structured data
-                handling in mind.
+              <p className="text-zinc-400 leading-8 mb-4">
+                Multiplayer casino games built around round-based flows, random events, and localized game states across different modes.
+              </p>
+
+              <p className="text-zinc-400 leading-8 mb-4">
+                Built the frontend from scratch, implementing game rules, round transitions, random challenge logic, and multilingual flows for live releases.
+              </p>
+
+              <p className="text-sm text-zinc-300 mb-3">
+                Built the full frontend for multiple live game flows.
               </p>
 
               <p className="text-sm text-zinc-500 mb-8">
-                React · Node.js · MongoDB
+                React · JavaScript · CSS
               </p>
 
               <div className="flex justify-center md:justify-start flex-wrap gap-5 items-center">
                 
                 <a
-                  href="https://github.com/Shaikohn/Ztreamgames"
+                  href="https://vschat.app/"
                   target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center py-2 text-sm font-semibold underline underline-offset-4 text-zinc-300 hover:text-white transition-all duration-200"
+                  rel="noopener noreferrer"
+                  className="text-sm font-semibold px-6 py-3 rounded-full bg-white text-[#0a0f1c] hover:scale-[1.05] hover:shadow-[0_10px_30px_rgba(255,255,255,0.15)] transition-all duration-200"
                 >
-                  GitHub
+                  View VSChat
+                </a>
+
+                <a
+                  href="https://godsroulette.app/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-semibold px-6 py-3 rounded-full bg-white text-[#0a0f1c] hover:scale-[1.05] hover:shadow-[0_10px_30px_rgba(255,255,255,0.15)] transition-all duration-200"
+                >
+                  View God's Roulette
                 </a>
 
                 <button
-                  onClick={() => openModal(ztreamImages, "ZtreamGames", "web")}
-                  className="text-sm font-semibold px-5 py-2.5 rounded-full border border-white/15 hover:bg-white/10 hover:border-white/30 hover:scale-[1.03] transition-all duration-200"
+                  onClick={() => openModal(casinoImages, "DeltaBet", "web")}
+                  className="cursor-pointer text-sm font-semibold px-5 py-2.5 rounded-full border border-white/15 hover:bg-white/10 hover:border-white/30 hover:scale-[1.03] transition-all duration-200"
                 >
                   Screenshots
                 </button>
@@ -166,49 +218,65 @@ export default function Projects() {
             {/* IMAGE */}
             <div className="order-2 flex justify-center md:justify-end">
               <div className="rounded-2xl border border-white/8 bg-black/15 p-3 shadow-[0_20px_60px_rgba(0,0,0,0.25)] transition-all duration-300 group-hover:scale-[1.02]">
-                <img src={ztreamCover} alt="ZtreamGames" />
+                <button
+                  type="button"
+                  onClick={() => openModal(casinoImages, "DeltaBet", "web")}
+                  className="p-0 bg-transparent border-0 cursor-pointer"
+                  aria-label="Open DeltaBet screenshots"
+                >
+                  <img src={casCover} alt="DeltaBet" />
+                </button>
               </div>
             </div>
           </article>
 
-          {/* ================== CUEVANIX ================== */}
+          {/* ================== FULBO ================== */}
           <article className="group grid md:grid-cols-[1.05fr_0.95fr] gap-8 md:gap-10 items-center opacity-90 hover:opacity-100 transition-all duration-300">
 
             {/* TEXT */}
             <div className="order-1 md:order-2 max-w-xl text-center md:text-left transition-all duration-300 group-hover:-translate-y-1">
               
-              <h3 className="text-2xl md:text-3xl font-semibold mb-2">
-                Cuevanix
+              <h3 className="text-2xl md:text-3xl font-semibold mb-2 flex items-center gap-2 justify-center md:justify-start">
+                Fulbo Platform
+                <span className="text-[10px] px-2 py-0.5 rounded-full bg-green-500/10 text-green-400 border border-green-500/20">
+                  Live
+                </span>
               </h3>
 
               <p className="text-xs text-zinc-500 mb-4 tracking-wide">
-                Full-stack product · Individual project
+                2026 · Freelance work · Product launch platform
               </p>
 
-              <p className="text-zinc-400 leading-8 mb-6">
-                A complete movie platform combining e-commerce, content browsing
-                and user interaction, designed with a focus on structure,
-                usability and scalability.
+              <p className="text-zinc-400 leading-8 mb-4">
+                Web platform built to support the launch and presale of an upcoming football game.
+              </p>
+
+              <p className="text-zinc-400 leading-8 mb-4">
+                Built the site from scratch, structuring the presale flow, responsive pages, and navigation around a clear launch path before release.
+              </p>
+
+              <p className="text-sm text-zinc-300 mb-3">
+                Built the full frontend and presale experience from the ground up.
               </p>
 
               <p className="text-sm text-zinc-500 mb-8">
-                React · Node · Mongo · Stripe
+                Next.js · JavaScript · CSS
               </p>
 
               <div className="flex justify-center md:justify-start flex-wrap gap-5 items-center">
                 
                 <a
-                  href="https://github.com/Shaikohn/Cuevanix"
+                  href="https://fulbo.fun/"
                   target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center py-2 text-sm font-semibold underline underline-offset-4 text-zinc-300 hover:text-white transition-all duration-200"
+                  rel="noopener noreferrer"
+                  className="text-sm font-semibold px-6 py-3 rounded-full bg-white text-[#0a0f1c] hover:scale-[1.05] hover:shadow-[0_10px_30px_rgba(255,255,255,0.15)] transition-all duration-200"
                 >
-                  GitHub
+                  View Fulbo.fun
                 </a>
 
                 <button
-                  onClick={() => openModal(cuevanixImages, "Cuevanix", "web")}
-                  className="text-sm font-semibold px-5 py-2.5 rounded-full border border-white/15 hover:bg-white/10 hover:border-white/30 hover:scale-[1.03] transition-all duration-200"
+                  onClick={() => openModal(fulboImages, "Fulbo", "web")}
+                  className="cursor-pointer text-sm font-semibold px-5 py-2.5 rounded-full border border-white/15 hover:bg-white/10 hover:border-white/30 hover:scale-[1.03] transition-all duration-200"
                 >
                   Screenshots
                 </button>
@@ -218,11 +286,95 @@ export default function Projects() {
             {/* IMAGE */}
             <div className="order-2 md:order-1 flex justify-center">
               <div className="rounded-2xl border border-white/8 bg-black/15 p-3 shadow-[0_20px_60px_rgba(0,0,0,0.25)] transition-all duration-300 group-hover:scale-[1.02]">
-                <img src={cuevanixCover} alt="Cuevanix" />
+                <button
+                  type="button"
+                  onClick={() => openModal(fulboImages, "Fulbo", "web")}
+                  className="p-0 bg-transparent border-0 cursor-pointer"
+                  aria-label="Open Fulbo screenshots"
+                >
+                  <img src={fulboCover} alt="Fulbo" />
+                </button>
               </div>
             </div>
           </article>
         </div>
+        {/* ================== MORE WORK ================== */}
+<div className="mt-20 md:mt-24">
+
+  <h3 className="text-xl md:text-2xl text-zinc-400 mb-8">
+    More Work
+  </h3>
+
+  <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+
+{/* CARD */}
+<div className="group">
+  <div className="rounded-xl border border-white/10 bg-black/20 p-3 transition-all duration-300 group-hover:scale-[1.02] group-hover:border-white/20">
+    
+    <img
+      src={ztreamCover}
+      alt="ZtreamGames"
+      className="rounded-lg mb-3"
+    />
+
+    {/* HEADER */}
+    <div className="flex items-center justify-between mb-2">
+      <p className="text-sm text-zinc-300">
+        ZtreamGames
+      </p>
+
+      <a
+        href="https://github.com/Shaikohn/ZtreamGames"
+        target="_blank"
+        rel="noreferrer"
+        className="text-xs border border-white/10 px-2.5 py-1 rounded-full text-zinc-300 hover:bg-white/10 hover:text-white transition-all"
+      >
+        GitHub
+      </a>
+    </div>
+
+    <p className="text-xs text-zinc-500">
+      Handled filtering logic and data flow between frontend and backend.
+    </p>
+
+  </div>
+</div>
+
+{/* CARD */}
+<div className="group">
+  <div className="rounded-xl border border-white/10 bg-black/20 p-3 transition-all duration-300 group-hover:scale-[1.02] group-hover:border-white/20">
+    
+    <img
+      src={cuevanixCover}
+      alt="Cuevanix"
+      className="rounded-lg mb-3"
+    />
+
+    {/* HEADER */}
+    <div className="flex items-center justify-between mb-2">
+      <p className="text-sm text-zinc-300">
+        Cuevanix
+      </p>
+
+      <a
+        href="https://github.com/Shaikohn/Cuevanix"
+        target="_blank"
+        rel="noreferrer"
+        className="text-xs border border-white/10 px-2.5 py-1 rounded-full text-zinc-300 hover:bg-white/10 hover:text-white transition-all"
+      >
+        GitHub
+      </a>
+    </div>
+
+    <p className="text-xs text-zinc-500">
+      Built cart logic and handled checkout flow with Stripe integration.
+    </p>
+
+  </div>
+</div>
+
+  </div>
+</div>
       </div>
 
       <ProjectModal

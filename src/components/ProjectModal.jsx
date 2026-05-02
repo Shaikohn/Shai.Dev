@@ -69,15 +69,52 @@ export default function ProjectModal({
         onTouchStart={isMobileProject ? handleTouchStart : undefined}
         onTouchEnd={isMobileProject ? handleTouchEnd : undefined}
       >
-        {/* HEADER */}
-        <div className="absolute top-5 left-4 md:top-6 md:left-6 text-white text-base md:text-lg font-medium">
+        {/* MOBILE TOP BAR */}
+        <div className="md:hidden absolute top-4 left-4 right-4 z-20 flex items-center justify-between gap-3">
+          <div className="min-w-0 text-white text-base font-medium truncate">
+            {title}
+          </div>
+
+          <div className="flex items-center gap-2 shrink-0">
+            {images.length > 1 && (
+              <>
+                <button
+                  onClick={prev}
+                  aria-label="Previous image"
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/50 text-lg text-white backdrop-blur-md transition-all duration-200 hover:bg-white/10"
+                >
+                  ‹
+                </button>
+
+                <button
+                  onClick={next}
+                  aria-label="Next image"
+                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/50 text-lg text-white backdrop-blur-md transition-all duration-200 hover:bg-white/10"
+                >
+                  ›
+                </button>
+              </>
+            )}
+
+            <button
+              onClick={onClose}
+              aria-label="Close modal"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/50 text-lg text-white/80 backdrop-blur-md transition-all duration-200 hover:text-white hover:bg-white/10"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+
+        {/* DESKTOP HEADER */}
+        <div className="hidden md:block absolute top-6 left-6 text-white text-lg font-medium">
           {title}
         </div>
 
-        {/* CLOSE */}
+        {/* DESKTOP CLOSE */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 md:top-6 md:right-6 text-white/70 hover:text-white text-2xl transition cursor-pointer"
+          className="hidden md:block absolute top-6 right-6 text-white/70 hover:text-white text-2xl transition cursor-pointer"
         >
           ✕
         </button>
@@ -85,7 +122,9 @@ export default function ProjectModal({
         {/* IMAGE CONTAINER */}
         <div
           className={`relative w-full flex justify-center ${
-            isMobileProject ? "max-w-[85vw] md:max-w-[420px]" : "max-w-[95vw] md:max-w-[1100px]"
+            isMobileProject
+              ? "max-w-[85vw] md:max-w-[420px]"
+              : "max-w-[95vw] md:max-w-[1100px]"
           }`}
         >
           {/* Glow */}
@@ -132,26 +171,6 @@ export default function ProjectModal({
           )}
         </div>
 
-        {/* ARROWS */}
-        {images.length > 1 && (
-          <>
-            {/* Desktop arrows only */}
-            <button
-              onClick={prev}
-              className="hidden md:flex absolute left-10 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/60 backdrop-blur-md border border-white/10 items-center justify-center text-white text-xl hover:bg-white/10 transition cursor-pointer"
-            >
-              ‹
-            </button>
-
-            <button
-              onClick={next}
-              className="hidden md:flex absolute right-10 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-black/60 backdrop-blur-md border border-white/10 items-center justify-center text-white text-xl hover:bg-white/10 transition cursor-pointer"
-            >
-              ›
-            </button>
-          </>
-        )}
-
         {/* MOBILE HINT FOR WEB */}
         {!isMobileProject && (
           <p className="md:hidden mt-3 text-xs text-zinc-400 text-center">
@@ -159,13 +178,48 @@ export default function ProjectModal({
           </p>
         )}
 
-        {/* DOTS */}
+        {/* DESKTOP CONTROLS */}
         {images.length > 1 && (
-          <div className="flex gap-2 mt-4 md:mt-6">
+          <div className="hidden md:flex mt-6 items-center justify-center gap-5">
+            <button
+              onClick={prev}
+              aria-label="Previous image"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/50 text-xl text-white backdrop-blur-md transition-all duration-200 hover:scale-[1.06] hover:bg-white/10 hover:border-white/30 cursor-pointer"
+            >
+              <span className="-translate-y-[1px]">‹</span>
+            </button>
+
+            <div className="flex items-center gap-2">
+              {images.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setCurrent(i)}
+                  aria-label={`Go to image ${i + 1}`}
+                  className={`h-1.5 rounded-full transition-all cursor-pointer ${
+                    i === current ? "w-8 bg-white" : "w-3 bg-white/40"
+                  }`}
+                />
+              ))}
+            </div>
+
+            <button
+              onClick={next}
+              aria-label="Next image"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/50 text-xl text-white backdrop-blur-md transition-all duration-200 hover:scale-[1.06] hover:bg-white/10 hover:border-white/30 cursor-pointer"
+            >
+              <span className="-translate-y-[1px]">›</span>
+            </button>
+          </div>
+        )}
+
+        {/* MOBILE DOTS ONLY */}
+        {images.length > 1 && (
+          <div className="md:hidden flex gap-2 mt-4">
             {images.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setCurrent(i)}
+                aria-label={`Go to image ${i + 1}`}
                 className={`h-1.5 rounded-full transition-all cursor-pointer ${
                   i === current ? "w-8 bg-white" : "w-3 bg-white/40"
                 }`}
