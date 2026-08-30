@@ -1,4 +1,7 @@
+import { useLanguage } from "../i18n/useLanguage";
+
 export default function Contact() {
+  const { t } = useLanguage();
   return (
     <section
       id="contact"
@@ -6,17 +9,15 @@ export default function Contact() {
     >
       <div className="max-w-4xl mx-auto px-6 md:px-10 text-center">
         <p className="text-sm text-zinc-500 mb-6 tracking-wide">
-          Contact
+          {t.contact.label}
         </p>
 
         <h2 className="text-3xl md:text-5xl font-semibold leading-tight mb-8">
-          Let’s build something well crafted.
+          {t.contact.title}
         </h2>
 
         <p className="text-zinc-400 text-lg leading-8 mb-12 max-w-2xl mx-auto">
-          Open to full-time roles, freelance work and collaborations. If you're
-          building something and need a developer who values clarity and
-          structure, let’s talk.
+          {t.contact.description}
         </p>
 
         <div className="flex justify-center flex-wrap gap-4">
@@ -24,7 +25,7 @@ export default function Contact() {
             href="mailto:shai.kohn.dev@gmail.com"
             className="rounded-full bg-white text-[#0a0f1c] px-7 py-3.5 text-sm font-semibold transition-all duration-200 hover:scale-[1.05] hover:shadow-[0_10px_30px_rgba(255,255,255,0.2)]"
           >
-            Email me
+            {t.contact.email}
           </a>
 
           <a

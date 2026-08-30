@@ -1,16 +1,58 @@
-# React + Vite
+# Shai.Dev
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Portafolio bilingüe de Shai Kohn, construido con React, Vite y Tailwind CSS.
 
-Currently, two official plugins are available:
+## Desarrollo local
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+```bash
+npm install
+npm run dev
+```
 
-## React Compiler
+Comprobaciones disponibles:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+```bash
+npm run lint
+npm run build
+```
 
-## Expanding the ESLint configuration
+## Editar proyectos
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Todo el contenido está centralizado en `src/data/projects.js`.
+
+- `featuredProjects`: casos principales con descripción, autoría, tecnologías, imágenes y enlaces.
+- `additionalProjects`: tarjetas compactas de trabajos adicionales.
+- El orden de cada arreglo determina el orden visual.
+- `type` puede ser `mobile` o `web` y controla la galería.
+
+Las imágenes se guardan en `src/assets/projects/<proyecto>/`.
+
+## Editar textos e idiomas
+
+Los textos generales en español e inglés están en `src/i18n/translations.js`. Los textos de cada proyecto viven junto con sus datos en `src/data/projects.js`.
+
+El selector guarda la preferencia como `shai-dev-language` en `localStorage`. En una primera visita utiliza español si el idioma del navegador comienza con `es`, e inglés en cualquier otro caso.
+
+## Estructura
+
+```text
+src/
+├── components/       Componentes compartidos y tarjetas
+├── data/             Contenido estructurado
+├── i18n/             Traducciones y selección de idioma
+├── pages/            Home y políticas de privacidad
+├── sections/         Secciones de la página principal
+└── assets/           Imágenes y recursos visuales
+```
+
+## Agregar un proyecto destacado
+
+1. Crear su carpeta en `src/assets/projects/`.
+2. Importar portada y capturas en `src/data/projects.js`.
+3. Agregar un objeto a `featuredProjects` con textos `es` y `en`.
+4. Definir enlaces y tecnologías.
+5. Ejecutar `npm run lint` y `npm run build`.
+
+## Despliegue
+
+La regla de Vercel dirige las rutas de la SPA a `index.html`. Antes de publicar, verificar lint y build.

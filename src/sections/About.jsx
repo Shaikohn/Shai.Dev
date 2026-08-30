@@ -1,6 +1,8 @@
 import logo from "../assets/logo.png";
+import { useLanguage } from "../i18n/useLanguage";
 
 export default function About() {
+  const { t } = useLanguage();
   return (
     <section
       id="about"
@@ -12,7 +14,7 @@ export default function About() {
           {/* LEFT */}
           <div className="md:mt-6 lg:mt-8">
             <p className="text-sm text-zinc-400 mb-5 tracking-wide">
-              About
+              {t.about.label}
             </p>
 
             <div className="flex items-center gap-3 mb-8">
@@ -31,27 +33,15 @@ export default function About() {
             </div>
 
             <h2 className="text-4xl md:text-5xl font-semibold leading-[1.08] max-w-[16ch] mx-auto md:mx-0 text-center md:text-left">
-              How I work on real systems
+              {t.about.title}
             </h2>
           </div>
 
           {/* RIGHT */}
           <div className="max-w-2xl">
-            <p className="text-zinc-200 text-lg leading-8 mb-8">
-              I’m Shai, a developer focused on mobile products and frontend systems that need to behave consistently under real use. Most of my work is in React Native and React, with a strong focus on real-time flows, state handling, and product behavior.
-            </p>
-
-            <p className="text-zinc-400 text-lg leading-8 mb-8">
-              In Impostor Futbolero, I built the full app and handled real-time synchronization between players during rooms, voting, and round changes. The main challenge was keeping the game state consistent across multiple clients without breaking the flow of the match.
-            </p>
-
-            <p className="text-zinc-400 text-lg leading-8 mb-10">
-              That is the kind of work I enjoy most: building products where logic matters as much as UI, and where small state mistakes turn into real product problems.
-            </p>
-
-            <p className="text-zinc-400 text-lg leading-8 mb-10">
-              I also build freelance products from scratch, taking care of the implementation and product flow needed to turn an idea into something people can actually use.
-            </p>
+            {t.about.paragraphs.map((paragraph, index) => (
+              <p key={paragraph} className={`${index === 0 ? "text-zinc-200" : "text-zinc-400"} mb-8 text-lg leading-8`}>{paragraph}</p>
+            ))}
 
             <div className="flex flex-wrap justify-center md:justify-start gap-3 mb-8">
               <span className="min-w-[170px] text-center rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-zinc-300">
@@ -66,9 +56,7 @@ export default function About() {
             </div>
 
             <p className="text-sm text-zinc-500 tracking-wide">
-              Currently focused on building mobile-first products and looking
-              for full-time opportunities where I can contribute and keep
-              growing.
+              {t.about.focus}
             </p>
           </div>
         </div>

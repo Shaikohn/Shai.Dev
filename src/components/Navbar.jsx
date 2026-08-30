@@ -1,8 +1,10 @@
 import { useState } from "react";
 import logo from "../assets/logo.png";
+import { useLanguage } from "../i18n/useLanguage";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
 
   const closeMenu = () => setIsOpen(false);
 
@@ -39,7 +41,7 @@ export default function Navbar() {
               href="#projects"
               className="group relative text-zinc-400 transition-colors duration-300 hover:text-white"
             >
-              Projects
+              {t.nav.projects}
               <span className="absolute left-0 -bottom-1 h-px w-0 bg-white transition-all duration-300 group-hover:w-full" />
             </a>
 
@@ -47,7 +49,7 @@ export default function Navbar() {
               href="#about"
               className="group relative text-zinc-400 transition-colors duration-300 hover:text-white"
             >
-              About
+              {t.nav.about}
               <span className="absolute left-0 -bottom-1 h-px w-0 bg-white transition-all duration-300 group-hover:w-full" />
             </a>
 
@@ -55,10 +57,18 @@ export default function Navbar() {
               href="#contact"
               className="group relative text-zinc-400 transition-colors duration-300 hover:text-white"
             >
-              Contact
+              {t.nav.contact}
               <span className="absolute left-0 -bottom-1 h-px w-0 bg-white transition-all duration-300 group-hover:w-full" />
             </a>
           </nav>
+
+          <div className="hidden items-center rounded-full border border-white/10 p-0.5 text-[11px] md:flex" aria-label="Language">
+            {["es", "en"].map((code) => (
+              <button key={code} type="button" onClick={() => setLanguage(code)} aria-pressed={language === code} className={`rounded-full px-2 py-1 uppercase transition-colors ${language === code ? "bg-white text-[#0a0f1c]" : "text-zinc-400 hover:text-white"}`}>
+                {code}
+              </button>
+            ))}
+          </div>
 
           {/* Mobile button */}
           <button
@@ -102,7 +112,7 @@ export default function Navbar() {
               onClick={closeMenu}
               className="transition-all duration-300 hover:text-white hover:translate-x-1"
             >
-              Projects
+              {t.nav.projects}
             </a>
 
             <a
@@ -110,7 +120,7 @@ export default function Navbar() {
               onClick={closeMenu}
               className="transition-all duration-300 hover:text-white hover:translate-x-1"
             >
-              About
+              {t.nav.about}
             </a>
 
             <a
@@ -118,8 +128,16 @@ export default function Navbar() {
               onClick={closeMenu}
               className="transition-all duration-300 hover:text-white hover:translate-x-1"
             >
-              Contact
+              {t.nav.contact}
             </a>
+
+            <div className="flex items-center gap-2 border-t border-white/10 pt-3">
+              {["es", "en"].map((code) => (
+                <button key={code} type="button" onClick={() => setLanguage(code)} aria-pressed={language === code} className={`rounded-full px-3 py-1.5 text-xs uppercase ${language === code ? "bg-white text-[#0a0f1c]" : "border border-white/10 text-zinc-400"}`}>
+                  {code}
+                </button>
+              ))}
+            </div>
           </nav>
         </div>
       </div>

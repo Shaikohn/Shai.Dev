@@ -1,6 +1,8 @@
 import heroImage from "../assets/hero.png";
+import { useLanguage } from "../i18n/useLanguage";
 
 export default function Hero() {
+  const { t } = useLanguage();
   return (
     <section
       id="home"
@@ -14,15 +16,15 @@ export default function Hero() {
           {/* LEFT */}
           <div className="max-w-2xl mx-auto text-center md:text-left">
             <p className="text-[11px] uppercase tracking-[0.28em] text-zinc-500 mb-6 mx-auto md:mx-0">
-              React Native · Firebase · Real-time
+              {t.hero.eyebrow}
             </p>
 
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-semibold leading-[1.04] tracking-tight mb-8 max-w-[14ch] mx-auto md:mx-0">
-              I build products that are simple to use and hard to break.
+              {t.hero.title}
             </h1>
 
             <p className="text-zinc-400 text-base md:text-lg leading-8 max-w-[36rem] mx-auto md:mx-0 mb-10">
-              Specialized in React Native and real-time systems. Currently shipping on Android.
+              {t.hero.description}
             </p>
 
             <div className="flex flex-wrap justify-center md:justify-start gap-4">
@@ -30,19 +32,19 @@ export default function Hero() {
                 href="#projects"
                 className="inline-flex items-center justify-center rounded-full bg-white text-[#0a0f1c] px-6 py-3.5 text-sm font-semibold transition-all duration-200 hover:scale-[1.04] hover:shadow-[0_10px_30px_rgba(255,255,255,0.14)]"
               >
-                View Projects
+                {t.hero.projects}
               </a>
 
               <a
                 href="#contact"
                 className="inline-flex items-center justify-center rounded-full border border-white/20 bg-transparent px-6 py-3.5 text-sm font-semibold text-zinc-100 transition-all duration-200 hover:bg-white/10 hover:border-white/25 hover:scale-[1.02]"
               >
-                Contact Me
+                {t.hero.contact}
               </a>
             </div>
 
             <p className="mt-6 text-xs text-zinc-500">
-              Open to full-time opportunities and selected freelance work.
+              {t.hero.availability}
             </p>
           </div>
 
@@ -55,7 +57,8 @@ export default function Hero() {
               <div className="relative rounded-[36px] border border-white/10 bg-black/25 p-2 shadow-[0_28px_70px_rgba(0,0,0,0.42)] backdrop-blur-sm">
                 <img
                   src={heroImage}
-                  alt="Impostor Futbolero mobile preview"
+                  alt={t.hero.imageAlt}
+                  decoding="async"
                   className="w-full max-w-[320px] rounded-[28px] object-cover"
                 />
               </div>

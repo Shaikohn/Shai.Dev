@@ -1,232 +1,63 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { useLanguage } from "../i18n/useLanguage";
 
-export default function ProjectModal({
-  isOpen,
-  onClose,
-  images = [],
-  title,
-  type = "mobile",
-}) {
+export default function ProjectModal({ isOpen, onClose, images = [], title, type = "mobile" }) {
+  const { t } = useLanguage();
   const [current, setCurrent] = useState(0);
+  const dialogRef = useRef(null);
   const touchStartX = useRef(0);
-  const touchEndX = useRef(0);
-
-  const next = () => setCurrent((prev) => (prev + 1) % images.length);
-  const prev = () =>
-    setCurrent((prev) => (prev - 1 + images.length) % images.length);
 
   useEffect(() => {
-    if (!isOpen) return;
-
-    const handleKey = (e) => {
-      if (e.key === "Escape") onClose();
-      if (e.key === "ArrowRight") next();
-      if (e.key === "ArrowLeft") prev();
+    if (!isOpen) return undefined;
+    const previousOverflow = document.body.style.overflow;
+    const previouslyFocused = document.activeElement;
+    const handleKey = (event) => {
+      if (event.key === "Escape") onClose();
+      if (event.key === "ArrowRight") setCurrent((value) => (value + 1) % images.length);
+      if (event.key === "ArrowLeft") setCurrent((value) => (value - 1 + images.length) % images.length);
     };
-
-    window.addEventListener("keydown", handleKey);
     document.body.style.overflow = "hidden";
-
+    dialogRef.current?.focus();
+    window.addEventListener("keydown", handleKey);
     return () => {
       window.removeEventListener("keydown", handleKey);
-      document.body.style.overflow = "auto";
+      document.body.style.overflow = previousOverflow;
+      previouslyFocused?.focus();
     };
-  }, [isOpen]);
+  }, [images.length, isOpen, onClose]);
 
-  useEffect(() => {
-    if (isOpen) setCurrent(0);
-  }, [isOpen, images]);
-
-  if (!isOpen) return null;
-
-  const handleTouchStart = (e) => {
-    touchStartX.current = e.changedTouches[0].clientX;
+  if (!isOpen || images.length === 0) return null;
+  const next = () => setCurrent((value) => (value + 1) % images.length);
+  const previous = () => setCurrent((value) => (value - 1 + images.length) % images.length);
+  const handleTouchEnd = (event) => {
+    const difference = touchStartX.current - event.changedTouches[0].clientX;
+    if (difference > 50) next();
+    if (difference < -50) previous();
   };
-
-  const handleTouchEnd = (e) => {
-    touchEndX.current = e.changedTouches[0].clientX;
-    const diff = touchStartX.current - touchEndX.current;
-
-    if (diff > 50) next();
-    if (diff < -50) prev();
-  };
-
   const isMobileProject = type === "mobile";
 
   return (
     <div className="fixed inset-0 z-[999] flex items-center justify-center">
-      {/* BACKGROUND */}
-      <div
-        className="absolute inset-0 bg-black/80 backdrop-blur-xl"
-        onClick={onClose}
-      />
-
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(59,130,246,0.15),transparent_60%)]" />
-
-      {/* CONTENT */}
-      <div
-        className="relative w-full h-full flex flex-col items-center justify-center px-4 md:px-6 pb-10 md:pb-0"
-        onTouchStart={isMobileProject ? handleTouchStart : undefined}
-        onTouchEnd={isMobileProject ? handleTouchEnd : undefined}
-      >
-        {/* MOBILE TOP BAR */}
-        <div className="md:hidden absolute top-4 left-4 right-4 z-20 flex items-center justify-between gap-3">
-          <div className="min-w-0 text-white text-base font-medium truncate">
-            {title}
-          </div>
-
-          <div className="flex items-center gap-2 shrink-0">
-            {images.length > 1 && (
-              <>
-                <button
-                  onClick={prev}
-                  aria-label="Previous image"
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/50 text-lg text-white backdrop-blur-md transition-all duration-200 hover:bg-white/10"
-                >
-                  ‹
-                </button>
-
-                <button
-                  onClick={next}
-                  aria-label="Next image"
-                  className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/50 text-lg text-white backdrop-blur-md transition-all duration-200 hover:bg-white/10"
-                >
-                  ›
-                </button>
-              </>
-            )}
-
-            <button
-              onClick={onClose}
-              aria-label="Close modal"
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/50 text-lg text-white/80 backdrop-blur-md transition-all duration-200 hover:text-white hover:bg-white/10"
-            >
-              ✕
-            </button>
+      <button type="button" className="absolute inset-0 cursor-default bg-black/80 backdrop-blur-xl" onClick={onClose} aria-label={t.modal.close} />
+      <div ref={dialogRef} role="dialog" aria-modal="true" aria-labelledby="project-gallery-title" tabIndex={-1} className="relative flex h-full w-full flex-col items-center justify-center px-4 pb-10 outline-none md:px-6 md:pb-0" onTouchStart={(event) => { touchStartX.current = event.changedTouches[0].clientX; }} onTouchEnd={isMobileProject ? handleTouchEnd : undefined}>
+        <div className="absolute left-4 right-4 top-4 z-20 flex items-center justify-between gap-3 md:left-6 md:right-6 md:top-6">
+          <h2 id="project-gallery-title" className="min-w-0 truncate text-base font-medium text-white md:text-lg">{title}</h2>
+          <div className="flex shrink-0 items-center gap-2">
+            {images.length > 1 && <>
+              <button type="button" onClick={previous} aria-label={t.modal.previous} className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/50 text-xl text-white hover:bg-white/10">‹</button>
+              <button type="button" onClick={next} aria-label={t.modal.next} className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/50 text-xl text-white hover:bg-white/10">›</button>
+            </>}
+            <button type="button" onClick={onClose} aria-label={t.modal.close} className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/50 text-xl text-white hover:bg-white/10">×</button>
           </div>
         </div>
-
-        {/* DESKTOP HEADER */}
-        <div className="hidden md:block absolute top-6 left-6 text-white text-lg font-medium">
-          {title}
-        </div>
-
-        {/* DESKTOP CLOSE */}
-        <button
-          onClick={onClose}
-          className="hidden md:block absolute top-6 right-6 text-white/70 hover:text-white text-2xl transition cursor-pointer"
-        >
-          ✕
-        </button>
-
-        {/* IMAGE CONTAINER */}
-        <div
-          className={`relative w-full flex justify-center ${
-            isMobileProject
-              ? "max-w-[85vw] md:max-w-[420px]"
-              : "max-w-[95vw] md:max-w-[1100px]"
-          }`}
-        >
-          {/* Glow */}
-          <div
-            className={`absolute inset-0 ${
-              isMobileProject
-                ? "scale-110 bg-blue-500/20 blur-3xl rounded-[40px]"
-                : "scale-105 bg-blue-500/10 blur-2xl rounded-[30px]"
-            }`}
-          />
-
-          {/* MOBILE PROJECT */}
-          {isMobileProject ? (
-            <div className="relative border border-white/10 bg-black/30 backdrop-blur-md shadow-[0_20px_80px_rgba(0,0,0,0.6)] rounded-[28px] p-2">
-              <img
-                src={images[current]}
-                alt=""
-                className="object-contain w-full max-w-[85vw] md:max-w-[320px] max-h-[70vh] rounded-[24px]"
-              />
-            </div>
-          ) : (
-            /* WEB PROJECT */
-            <div className="relative w-full border border-white/10 bg-black/30 backdrop-blur-md shadow-[0_20px_80px_rgba(0,0,0,0.6)] rounded-[20px] p-2 overflow-hidden">
-              {/* Desktop */}
-              <div className="hidden md:block">
-                <img
-                  src={images[current]}
-                  alt=""
-                  className="w-full max-h-[75vh] object-contain rounded-[16px]"
-                />
-              </div>
-
-              {/* Mobile: horizontal scroll for web screenshots */}
-              <div className="md:hidden overflow-x-auto overflow-y-hidden rounded-[16px] scrollbar-thin scrollbar-thumb-white/20 scrollbar-track-transparent">
-                <div className="min-w-[900px]">
-                  <img
-                    src={images[current]}
-                    alt=""
-                    className="w-full h-auto object-contain rounded-[16px]"
-                  />
-                </div>
-              </div>
-            </div>
-          )}
-        </div>
-
-        {/* MOBILE HINT FOR WEB */}
-        {!isMobileProject && (
-          <p className="md:hidden mt-3 text-xs text-zinc-400 text-center">
-            Swipe sideways to explore the screenshot
-          </p>
-        )}
-
-        {/* DESKTOP CONTROLS */}
-        {images.length > 1 && (
-          <div className="hidden md:flex mt-6 items-center justify-center gap-5">
-            <button
-              onClick={prev}
-              aria-label="Previous image"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/50 text-xl text-white backdrop-blur-md transition-all duration-200 hover:scale-[1.06] hover:bg-white/10 hover:border-white/30 cursor-pointer"
-            >
-              <span className="-translate-y-[1px]">‹</span>
-            </button>
-
-            <div className="flex items-center gap-2">
-              {images.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrent(i)}
-                  aria-label={`Go to image ${i + 1}`}
-                  className={`h-1.5 rounded-full transition-all cursor-pointer ${
-                    i === current ? "w-8 bg-white" : "w-3 bg-white/40"
-                  }`}
-                />
-              ))}
-            </div>
-
-            <button
-              onClick={next}
-              aria-label="Next image"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/50 text-xl text-white backdrop-blur-md transition-all duration-200 hover:scale-[1.06] hover:bg-white/10 hover:border-white/30 cursor-pointer"
-            >
-              <span className="-translate-y-[1px]">›</span>
-            </button>
+        <div className={`relative flex w-full justify-center ${isMobileProject ? "max-w-[85vw] md:max-w-[420px]" : "max-w-[95vw] md:max-w-[1100px]"}`}>
+          <div className="relative rounded-[24px] border border-white/10 bg-black/30 p-2 shadow-[0_20px_80px_rgba(0,0,0,0.6)]">
+            <img src={images[current]} alt={`${title} — ${current + 1}`} className={isMobileProject ? "max-h-[70vh] max-w-[85vw] rounded-[20px] object-contain md:max-w-[320px]" : "max-h-[75vh] w-full rounded-[16px] object-contain"} />
           </div>
-        )}
-
-        {/* MOBILE DOTS ONLY */}
-        {images.length > 1 && (
-          <div className="md:hidden flex gap-2 mt-4">
-            {images.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setCurrent(i)}
-                aria-label={`Go to image ${i + 1}`}
-                className={`h-1.5 rounded-full transition-all cursor-pointer ${
-                  i === current ? "w-8 bg-white" : "w-3 bg-white/40"
-                }`}
-              />
-            ))}
-          </div>
-        )}
+        </div>
+        {images.length > 1 && <div className="mt-5 flex items-center gap-2">
+          {images.map((_, index) => <button type="button" key={index} onClick={() => setCurrent(index)} aria-label={`${t.modal.goTo} ${index + 1}`} className={`h-1.5 rounded-full transition-all ${index === current ? "w-8 bg-white" : "w-3 bg-white/40"}`} />)}
+        </div>}
       </div>
     </div>
   );
