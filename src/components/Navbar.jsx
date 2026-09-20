@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 import { useLanguage } from "../i18n/useLanguage";
 
@@ -60,6 +61,9 @@ export default function Navbar() {
               {t.nav.contact}
               <span className="absolute left-0 -bottom-1 h-px w-0 bg-white transition-all duration-300 group-hover:w-full" />
             </a>
+            <Link to="/games" className="rounded-full border border-sky-400/30 bg-sky-400/10 px-3 py-1.5 font-medium text-sky-300 transition-colors hover:bg-sky-400/20 hover:text-white">
+              {t.nav.games}
+            </Link>
           </nav>
 
           <div className="hidden items-center rounded-full border border-white/10 p-0.5 text-[11px] md:flex" aria-label="Language">
@@ -130,6 +134,10 @@ export default function Navbar() {
             >
               {t.nav.contact}
             </a>
+
+            <Link to="/games" onClick={closeMenu} className="font-medium text-sky-300 transition-colors hover:text-white">
+              {t.nav.games}
+            </Link>
 
             <div className="flex items-center gap-2 border-t border-white/10 pt-3">
               {["es", "en"].map((code) => (

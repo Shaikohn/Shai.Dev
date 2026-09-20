@@ -1,82 +1,26 @@
-import impostorCover from "../assets/projects/impostor/cover.png";
-import imp1 from "../assets/projects/impostor/imp1.png";
-import imp2 from "../assets/projects/impostor/imp2.png";
-import imp3 from "../assets/projects/impostor/imp3.png";
-import imp4 from "../assets/projects/impostor/imp4.png";
-import imp5 from "../assets/projects/impostor/imp5.png";
-import pdbCover from "../assets/projects/pdb/cover.png";
-import pdb1 from "../assets/projects/pdb/pdb1.png";
-import pdb2 from "../assets/projects/pdb/pdb2.png";
-import pdb3 from "../assets/projects/pdb/pdb3.png";
 import casinoCover from "../assets/projects/casino/cover.png";
 import ztreamCover from "../assets/projects/ztreamgames/cover.png";
 import cuevanixCover from "../assets/projects/cuevanix/cover.png";
 import fulboCover from "../assets/projects/fulbo/cover.png";
-import whispersCover from "../assets/projects/whispers-of-war/app-icon.png";
-import whispersHome from "../assets/projects/whispers-of-war/Home.png";
-import whispersEnterTheKingdom from "../assets/projects/whispers-of-war/EnterTheKingdom.png";
-import whispersLobby from "../assets/projects/whispers-of-war/Lobby.png";
-import whispersRole from "../assets/projects/whispers-of-war/Role.png";
+import { games } from "./games";
 
-export const featuredProjects = [
-  {
-    id: "impostor-futbolero",
-    title: "Impostor Futbolero",
-    type: "mobile",
-    status: { es: "Publicado en Play Store", en: "Live on Play Store" },
-    meta: { es: "2026 · Producto mobile · Multijugador en tiempo real", en: "2026 · Mobile product · Real-time multiplayer" },
-    summary: {
-      es: "Juego social para móviles basado en salas privadas, votaciones y partidas por turnos.",
-      en: "Real-time mobile party game built around private rooms, voting rounds, and turn-based matches.",
-    },
-    contribution: {
-      es: "Diseñé y desarrollé el producto completo: flujo de salas, sincronización de jugadores, votaciones, progresión de rondas, interfaz y publicación.",
-      en: "I designed and built the complete product: room flows, player synchronization, voting, round progression, interface, and release.",
-    },
-    technologies: ["React Native", "Firebase", "Real-time sync"],
-    cover: impostorCover,
-    images: [impostorCover, imp1, imp2, imp3, imp4, imp5],
-    links: { live: "https://play.google.com/store/apps/details?id=com.shaidev.impostorfutbolero&hl=es", privacy: "/impostorfutbolero/privacy-policy" },
+export const featuredProjects = games.map((game) => ({
+  id: game.id,
+  title: game.title,
+  type: game.type,
+  status: game.status,
+  meta: game.professional.meta,
+  summary: game.professional.summary,
+  contribution: game.professional.contribution,
+  ownership: game.professional.ownership,
+  technologies: game.professional.technologies,
+  cover: game.cover,
+  images: game.images,
+  links: {
+    live: game.links.store,
+    caseStudy: `/portfolio/${game.id}`,
   },
-  {
-    id: "pdb",
-    title: "PDB (Pedazo de Boludo)",
-    type: "mobile",
-    status: { es: "Publicado en Play Store", en: "Live on Play Store" },
-    meta: { es: "2026 · Producto mobile · Multijugador en tiempo real", en: "2026 · Mobile product · Real-time multiplayer" },
-    summary: {
-      es: "Party game multijugador con consignas personalizadas, jueces rotativos e interacción social.",
-      en: "Real-time multiplayer party game with custom prompts, rotating judges, and social interaction.",
-    },
-    contribution: {
-      es: "Construí el producto de principio a fin, incluyendo rondas sincronizadas, envío de respuestas, resolución del juez, revanchas y administración de salas.",
-      en: "I built the product end to end, including synchronized rounds, answer submission, judge resolution, rematches, and live room management.",
-    },
-    technologies: ["React Native", "Firebase", "Real-time sync"],
-    cover: pdbCover,
-    images: [pdbCover, pdb1, pdb2, pdb3],
-    links: { live: "https://play.google.com/store/apps/details?id=com.shaidev.pdb", privacy: "/pdb/privacy-policy" },
-  },
-  {
-    id: "whispers-of-war",
-    title: "Whispers Of War",
-    type: "mobile",
-    status: { es: "En desarrollo", en: "In development" },
-    meta: { es: "2026 · Producto mobile · Deducción social multijugador", en: "2026 · Mobile product · Multiplayer social deduction" },
-    summary: {
-      es: "Juego de deducción social en tiempo real donde roles secretos atraviesan noches, debates, acusaciones y juicios hasta que una facción domina el reino.",
-      en: "Real-time social deduction game where secret roles navigate nights, debates, accusations, and trials until one faction controls the kingdom.",
-    },
-    contribution: {
-      es: "Diseñé y desarrollé el producto completo: salas públicas y privadas, roles y habilidades, máquina de fases, chats contextuales, sincronización de partidas y resoluciones críticas validadas en Cloud Functions.",
-      en: "I designed and built the complete product: public and private rooms, roles and abilities, phase machine, contextual chats, match synchronization, and critical resolutions validated by Cloud Functions.",
-    },
-    technologies: ["React Native", "Expo", "Firebase", "Cloud Functions"],
-    cover: whispersCover,
-    images: [whispersCover, whispersHome, whispersEnterTheKingdom, whispersLobby, whispersRole],
-    links: { privacy: "/whispers-of-war/privacy-policy" },
-  },
-];
+}));
 
 export const additionalProjects = [
   {
@@ -87,8 +31,16 @@ export const additionalProjects = [
       es: "Desarrollé el frontend completo de juegos multijugador en producción, incluyendo reglas, rondas, eventos aleatorios y flujos multilingües.",
       en: "Built the complete frontend for production multiplayer games, including rules, rounds, random events, and multilingual flows.",
     },
-    link: "https://godsroulette.app/",
-    linkType: "live",
+    meta: { es: "Implementación profesional · Juegos web", en: "Professional implementation · Web games" },
+    contribution: { es: "Implementé interfaces y lógica de juego para experiencias multijugador entregadas a un tercero, trabajando sobre reglas, rondas, eventos aleatorios, estados de partida y localización.", en: "I implemented interfaces and game logic for multiplayer experiences delivered to a third party, covering rules, rounds, random events, match states, and localization." },
+    ownership: { es: "Implementación frontend dentro de un producto de terceros; el código y los dominios no son públicos.", en: "Frontend implementation within a third-party product; its source code and domains are not public." },
+    technologies: ["React", "Vite", "JavaScript", "Responsive UI"],
+    caseStudy: {
+      challenge: { es: "Traducir reglas de casino y dinámicas multijugador a flujos visuales claros, consistentes y utilizables en distintas resoluciones e idiomas.", en: "Translate casino rules and multiplayer dynamics into clear, consistent visual flows across screen sizes and languages." },
+      architecture: { es: ["Componentes de interfaz organizados por estado de partida", "Lógica de rondas y eventos separada de la presentación", "Contenido preparado para múltiples idiomas"], en: ["Interface components organized around match state", "Round and event logic separated from presentation", "Content prepared for multiple languages"] },
+      decisions: { es: ["Representé los cambios de ronda como estados explícitos para mantener alineadas la lógica y la interfaz.", "Construí componentes reutilizables para compartir patrones entre distintas implementaciones sin uniformar la identidad visual.", "Priorizé feedback inmediato para que cada acción y resultado fuera comprensible sin documentación externa."], en: ["I represented round changes as explicit states to keep logic and interface aligned.", "I built reusable components to share patterns across implementations without flattening their visual identities.", "I prioritized immediate feedback so every action and result remained understandable without external documentation."] },
+      outcomes: { es: ["Dos experiencias de juego implementadas", "Flujos multilingües y responsive", "Entrega integrada a un producto de terceros"], en: ["Two game experiences implemented", "Multilingual responsive flows", "Delivery integrated into a third-party product"] },
+    },
   },
   {
     id: "ztreamgames",
@@ -97,6 +49,16 @@ export const additionalProjects = [
     description: { es: "Implementé la lógica de filtros y el flujo de datos entre frontend y backend.", en: "Handled filtering logic and data flow between frontend and backend." },
     link: "https://github.com/Shaikohn/ZtreamGames",
     linkType: "github",
+    meta: { es: "Proyecto grupal · E-commerce full-stack", en: "Team project · Full-stack e-commerce" },
+    contribution: { es: "Dentro del equipo me concentré en la lógica de búsqueda, filtros y ordenamiento del catálogo, además del flujo de datos entre el frontend y la API.", en: "Within the team, I focused on catalog search, filtering, and sorting logic, as well as the data flow between the frontend and API." },
+    ownership: { es: "Proyecto final grupal de Soy Henry; el caso distingue mi contribución del alcance total del producto.", en: "Soy Henry team capstone; this case separates my contribution from the full product scope." },
+    technologies: ["React", "Redux Toolkit", "Express", "MongoDB", "RAWG API"],
+    caseStudy: {
+      challenge: { es: "Combinar búsqueda, filtros y ordenamiento sobre un catálogo alimentado por datos externos sin generar estados contradictorios en la interfaz.", en: "Combine search, filters, and sorting over an externally sourced catalog without producing contradictory UI state." },
+      architecture: { es: ["Estado global del catálogo con Redux", "Consultas y transformaciones coordinadas con la API", "Interfaz de filtros compuesta y reutilizable"], en: ["Global catalog state with Redux", "Queries and transformations coordinated with the API", "Composable, reusable filter interface"] },
+      decisions: { es: ["Concentré los criterios activos en un único flujo de estado para evitar filtros que se sobrescribieran entre sí.", "Separé la obtención de datos de su presentación para simplificar carga, errores y resultados vacíos.", "Mantuve la lógica compatible con búsqueda, orden y múltiples filtros aplicados en conjunto."], en: ["I kept active criteria in a single state flow to prevent filters from overriding each other.", "I separated data fetching from presentation to simplify loading, errors, and empty results.", "I kept the logic compatible with search, sorting, and multiple simultaneous filters."] },
+      outcomes: { es: ["Catálogo explorable con criterios combinables", "Integración consistente entre cliente y API", "Aporte delimitado dentro de un equipo full-stack"], en: ["Browsable catalog with combinable criteria", "Consistent client-to-API integration", "Clearly scoped contribution within a full-stack team"] },
+    },
   },
   {
     id: "cuevanix",
@@ -105,13 +67,35 @@ export const additionalProjects = [
     description: { es: "Construí la lógica del carrito y el proceso de checkout con Stripe.", en: "Built cart logic and handled the checkout flow with Stripe." },
     link: "https://github.com/Shaikohn/Cuevanix",
     linkType: "github",
+    meta: { es: "Proyecto individual · Aplicación full-stack", en: "Individual project · Full-stack application" },
+    contribution: { es: "Construí la aplicación completa, con catálogo de películas, autenticación, carrito persistente, checkout de prueba con Stripe y herramientas de administración.", en: "I built the complete application, including its movie catalog, authentication, persistent cart, Stripe test checkout, and administration tools." },
+    ownership: { es: "Proyecto individual educativo; los pagos funcionan exclusivamente en modo de prueba.", en: "Individual educational project; payments operate exclusively in test mode." },
+    technologies: ["React", "Redux Toolkit", "Express", "MongoDB", "Stripe", "TMDB API"],
+    caseStudy: {
+      challenge: { es: "Conectar catálogo, sesión, carrito y checkout sin perder consistencia entre el estado del cliente, la API propia y servicios externos.", en: "Connect catalog, session, cart, and checkout while preserving consistency across client state, the custom API, and external services." },
+      architecture: { es: ["Frontend React con estado global en Redux", "API REST con Express y persistencia en MongoDB", "Integraciones separadas para TMDB, autenticación y Stripe"], en: ["React frontend with global Redux state", "Express REST API with MongoDB persistence", "Separate integrations for TMDB, authentication, and Stripe"] },
+      decisions: { es: ["Modelé el carrito como estado transversal para conservar selecciones a través del catálogo, detalle y checkout.", "Mantuve las claves y operaciones sensibles del pago en el backend.", "Separé datos externos de películas y datos propios de usuarios, compras y moderación."], en: ["I modeled the cart as cross-cutting state to preserve selections across catalog, detail, and checkout.", "I kept sensitive payment keys and operations on the backend.", "I separated external movie data from owned user, purchase, and moderation data."] },
+      outcomes: { es: ["Flujo completo desde descubrimiento hasta compra simulada", "Aplicación full-stack desarrollada individualmente", "Integración de API externa y pasarela de pago"], en: ["Complete discovery-to-simulated-purchase flow", "Individually built full-stack application", "External API and payment gateway integration"] },
+    },
   },
   {
     id: "fulbo",
     title: "Fulbo.fun",
     cover: fulboCover,
     description: { es: "Construí el sitio desde cero, incluyendo preventa, páginas responsive y navegación.", en: "Built the site from scratch, including the presale flow, responsive pages, and navigation." },
-    link: "https://github.com/Shaikohn/Fulbo",
-    linkType: "github",
+    link: "https://fulbo.fun/",
+    linkType: "live",
+    meta: { es: "Sitio en producción · Desarrollo frontend", en: "Production website · Frontend development" },
+    contribution: { es: "Construí el sitio responsive en Next.js, organicé sus páginas y componentes, implementé la navegación y preparé el flujo visual de preventa.", en: "I built the responsive Next.js website, organized its pages and components, implemented navigation, and prepared the visual presale flow." },
+    ownership: { es: "Implementación frontend completa sobre la identidad y el contenido del producto.", en: "Complete frontend implementation based on the product's identity and content." },
+    technologies: ["Next.js", "React", "TypeScript", "Responsive CSS"],
+    caseStudy: {
+      challenge: { es: "Transformar una identidad visual fuerte en un sitio rápido y adaptable, con una estructura preparada para crecer más allá de la landing inicial.", en: "Turn a strong visual identity into a fast, adaptable website with a structure prepared to grow beyond the initial landing page." },
+      architecture: { es: ["Rutas y layouts mediante Next.js App Router", "Secciones desacopladas como componentes", "Estilos responsive específicos por experiencia"], en: ["Routes and layouts through Next.js App Router", "Decoupled section components", "Experience-specific responsive styling"] },
+      decisions: { es: ["Dividí la landing en componentes con responsabilidad visual clara para facilitar cambios de contenido.", "Preparé la preventa como ruta independiente para permitir reemplazar el placeholder sin rehacer la navegación.", "Priorizé composición responsive en lugar de depender de una única maqueta de escritorio."], en: ["I divided the landing page into components with clear visual responsibility to simplify content changes.", "I prepared presale as an independent route so its placeholder can be replaced without rebuilding navigation.", "I prioritized responsive composition instead of relying on a single desktop layout."] },
+      outcomes: { es: ["Sitio público disponible en fulbo.fun", "Base modular para nuevas páginas", "Experiencia consistente en desktop y mobile"], en: ["Public website available at fulbo.fun", "Modular foundation for additional pages", "Consistent desktop and mobile experience"] },
+    },
   },
 ];
+
+export const getAdditionalProjectById = (id) => additionalProjects.find((project) => project.id === id);

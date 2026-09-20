@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "../i18n/useLanguage";
 
-export default function ProjectModal({ isOpen, onClose, images = [], title, type = "mobile" }) {
+export default function ProjectModal({ isOpen, onClose, images = [], title, type = "mobile", initialIndex = 0 }) {
   const { t } = useLanguage();
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState(initialIndex);
   const dialogRef = useRef(null);
   const touchStartX = useRef(0);
 
@@ -44,10 +44,10 @@ export default function ProjectModal({ isOpen, onClose, images = [], title, type
           <h2 id="project-gallery-title" className="min-w-0 truncate text-base font-medium text-white md:text-lg">{title}</h2>
           <div className="flex shrink-0 items-center gap-2">
             {images.length > 1 && <>
-              <button type="button" onClick={previous} aria-label={t.modal.previous} className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/50 text-xl text-white hover:bg-white/10">‹</button>
-              <button type="button" onClick={next} aria-label={t.modal.next} className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/50 text-xl text-white hover:bg-white/10">›</button>
+              <button type="button" onClick={previous} aria-label={t.modal.previous} className="grid h-10 w-10 cursor-pointer place-items-center rounded-full border border-white/15 bg-black/50 text-white hover:bg-white/10"><svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true"><path d="m15 18-6-6 6-6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg></button>
+              <button type="button" onClick={next} aria-label={t.modal.next} className="grid h-10 w-10 cursor-pointer place-items-center rounded-full border border-white/15 bg-black/50 text-white hover:bg-white/10"><svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true"><path d="m9 18 6-6-6-6" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg></button>
             </>}
-            <button type="button" onClick={onClose} aria-label={t.modal.close} className="flex h-10 w-10 items-center justify-center rounded-full border border-white/15 bg-black/50 text-xl text-white hover:bg-white/10">×</button>
+            <button type="button" onClick={onClose} aria-label={t.modal.close} className="grid h-10 w-10 cursor-pointer place-items-center rounded-full border border-white/15 bg-black/50 text-white hover:bg-white/10"><svg viewBox="0 0 24 24" className="h-5 w-5" aria-hidden="true"><path d="m7 7 10 10M17 7 7 17" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" /></svg></button>
           </div>
         </div>
         <div className={`relative flex w-full justify-center ${isMobileProject ? "max-w-[85vw] md:max-w-[420px]" : "max-w-[95vw] md:max-w-[1100px]"}`}>
